@@ -1,0 +1,17 @@
+[package]
+name = "hit"
+version = "0.1.0"
+authors = ["Brainium Studios LLC"]
+edition = "2018"
+description = "Utilities for working with git."
+documentation = "https://docs.rs/hit"
+repository = "https://github.com/BrainiumLLC/hit"
+readme = "README.md"
+license = "Apache-2.0/MIT"
+
+[dependencies]
+bossy = "0.1.2"
+log = "0.4.11"
+once-cell-regex = "0.1.1"
+thiserror = "1.0.21"
+serde = { version = "1.0.117", features = ["derive"], optional = true }
