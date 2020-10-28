@@ -7,6 +7,7 @@ description = "Utilities for working with git."
 documentation = "https://docs.rs/hit"
 repository = "https://github.com/BrainiumLLC/hit"
 readme = "README.md"
+keywords = ["git"]
 license = "Apache-2.0/MIT"
 
 [dependencies]
