@@ -82,16 +82,20 @@ impl Repo {
         Ok(status)
     }
 
-    pub fn latest_message(&self) -> Result<String, Error> {
+    pub fn latest_commit(&self, format: impl AsRef<str>) -> Result<String, Error> {
         let output = self
             .git()
-            .command_parse("log -1 --pretty=%B")
+            .command_parse(format!("log -1 --pretty={}", format.as_ref()))
             .run_and_wait_for_output()
             .map_err(Error::LogFailed)?;
         output
             .stdout_str()
             .map(|s| s.trim().to_owned())
             .map_err(Into::into)
+    }
+
+    pub fn latest_message(&self) -> Result<String, Error> {
+        self.latest_commit("%B")
     }
 
     pub fn update(&self, url: impl AsRef<std::ffi::OsStr>) -> Result<(), Error> {
