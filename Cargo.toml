@@ -11,8 +11,8 @@ keywords = ["git"]
 license = "Apache-2.0/MIT"
 
 [dependencies]
-bossy = "0.1.2"
+bossy = "0.2.1"
 log = "0.4.11"
-once-cell-regex = "0.1.1"
+once-cell-regex = "0.2.1"
 thiserror = "1.0.21"
 serde = { version = "1.0.117", features = ["derive"], optional = true }

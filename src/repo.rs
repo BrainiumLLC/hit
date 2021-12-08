@@ -12,8 +12,6 @@ pub enum Error {
     RevParseRemoteFailed(#[source] bossy::Error),
     #[error("Failed to get commit log: {0}")]
     LogFailed(#[source] bossy::Error),
-    #[error("Commit log contained invalid UTF-8: {0}")]
-    LogOutputInvalidUtf8(#[from] std::str::Utf8Error),
     #[error("Failed to create parent directory {path:?}: {source}")]
     ParentDirCreationFailed {
         path: PathBuf,
@@ -83,15 +81,10 @@ impl Repo {
     }
 
     pub fn latest_commit(&self, format: impl AsRef<str>) -> Result<String, Error> {
-        let output = self
-            .git()
+        self.git()
             .command_parse(format!("log -1 --pretty={}", format.as_ref()))
-            .run_and_wait_for_output()
-            .map_err(Error::LogFailed)?;
-        output
-            .stdout_str()
-            .map(|s| s.trim().to_owned())
-            .map_err(Into::into)
+            .run_and_wait_for_str(|s| s.trim().to_owned())
+            .map_err(Error::LogFailed)
     }
 
     pub fn latest_subject(&self) -> Result<String, Error> {
