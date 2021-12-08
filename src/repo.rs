@@ -94,8 +94,12 @@ impl Repo {
             .map_err(Into::into)
     }
 
-    pub fn latest_message(&self) -> Result<String, Error> {
-        self.latest_commit("%B")
+    pub fn latest_subject(&self) -> Result<String, Error> {
+        self.latest_commit("%s")
+    }
+
+    pub fn latest_body(&self) -> Result<String, Error> {
+        self.latest_commit("%b")
     }
 
     pub fn update(&self, url: impl AsRef<std::ffi::OsStr>) -> Result<(), Error> {
